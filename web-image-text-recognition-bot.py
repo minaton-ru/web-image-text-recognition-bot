@@ -26,9 +26,20 @@ with Image.open(requests.get(img_url, stream=True).raw) as image:
 bot = Bot(token=TOKEN) # Инициализация бота
 dp = Dispatcher(bot)
 
-@dp.message_handler(commands=["start"])
-async def cmd_start(message: types.Message):
-    await message.reply(string) # На команду start бот делает ответ на сообщение и высылает распознанный текст
+@dp.message_handler(commands="start")
+async def command_start(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["Текст", "Картинка"]
+    keyboard.add(*buttons)
+    await message.answer("Бот скачивает с сайта Новоспасского монастыря расписание богослужений и показывает его в виде текста или картинки. Распознавание текста с картинки может быть неточным. Связаться с разработчиком @minaton_ru.\n" "Официальный сайт Новоспасского монастыря - новоспасский-монастырь.рф.\n\n" "Выберите один из вариантов просмотра расписания: получить в виде текстового сообщения или загрузить в виде картинки.", reply_markup=keyboard)
+
+@dp.message_handler(lambda message: message.text == "Текст")
+async def send_text(message: types.Message):
+    await message.answer(string) # Высылает распознанный текст
+
+@dp.message_handler(lambda message: message.text == "Картинка")
+async def send_text(message: types.Message):
+    await bot.send_photo(message.chat.id, types.InputFile.from_url(img_url)) # Высылает картинку
 
 async def main():
     await dp.start_polling(bot)
