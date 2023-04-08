@@ -44,12 +44,14 @@ async def command_start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == "Текст")
 async def send_text(message: types.Message):
+    info_message = await bot.send_message(message.from_user.id, "Загрузка, подождите........")
     img_url = await get_img_url(URL)
     string = await text_recog_from_img(img_url)
+    await bot.delete_message(message.from_user.id, info_message.message_id)
     await message.answer(string) # Высылает распознанный текст
 
 @dp.message_handler(lambda message: message.text == "Картинка")
-async def send_text(message: types.Message):
+async def send_img(message: types.Message):
     img_url = await get_img_url(URL)
     await bot.send_photo(message.chat.id, types.InputFile.from_url(img_url)) # Высылает картинку
 
