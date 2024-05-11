@@ -12,7 +12,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 TOKEN = config['Telegram']['API_TOKEN']
 
-URL = 'http://новоспасский-монастырь.рф/raspisanie' # Адрес страницы, с которой будем забирать картинку
+URL = 'http://новоспасский-монастырь.рф/raspisanie/' # Адрес страницы, с которой будем забирать картинку
 tesseract_config = r'--psm 6' # Настройка для распознавания текста с картинки
 
 async def get_img_url(URL):
@@ -20,8 +20,7 @@ async def get_img_url(URL):
         async with session.get(URL) as response:  # Забираем содержимое этой страницы
             html = await response.text() # Смотрим содержимое через HTML-парсер
             soup = BeautifulSoup(html, 'html.parser') # Смотрим содержимое через HTML-парсер
-            my_img = soup.find("div", class_="leading-0").p.img.get('src') # Берем div, у которого нужный нам class, внутри этого div есть параграф, внутри которого нужный нам файл картинки, из которого мы забираем содержимое атрибута src
-            img_url = "http://xn----7sbbf5agftchdbghyfcaiu3qxa.xn--p1ai" + my_img # Составляем адрес для картинки
+            img_url= soup.find("div", class_="single").img.get('src') # Берем div, у которого нужный нам class, внутри этого div есть параграф, внутри которого нужный нам файл картинки, из которого мы забираем содержимое атрибута src
             return img_url
 
 async def text_recog_from_img(img_url):
