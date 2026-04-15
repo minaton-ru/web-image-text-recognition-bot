@@ -4,7 +4,11 @@
 Для распознавания текста с картинки используется библиотека Tesseract через модуль pytesseract.  
 Для получения картинки с сайта используется библиотека BeautifulSoup.
 Для бота используется библиотека aiogram 2.
-      
+
+
+sudo apt install tesseract-ocr
+sudo apt install tesseract-ocr-rus
+
 В файле `config.ini` в корневой директории хранятся токены в формате:  
 ```
 [Telegram]  
