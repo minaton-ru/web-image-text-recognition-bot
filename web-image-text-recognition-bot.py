@@ -25,7 +25,7 @@ async def get_img_url(URL):
             soup = BeautifulSoup(html, 'html.parser')  # Parse html
             # We select the div with the required class; inside this div is a paragraph, which
             # contains the target image tag, from which we extract the content of the src attribute.
-            img_url= soup.find("div", class_="single").img.get('src')
+            img_url = soup.find("div", class_="single").img.get('src')
             return img_url
 
 
