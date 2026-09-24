@@ -1,28 +1,29 @@
 # web-image-text-recognition-bot
-Телеграм-бот распознает текст с картинки, которая находится на сайте, высылает этот текст пользователю телеграма.  
 
-Для распознавания текста с картинки используется библиотека Tesseract через модуль pytesseract.  
-Для получения картинки с сайта используется библиотека BeautifulSoup.
-Для бота используется библиотека aiogram 2.
+This Telegram bot extracts text from an image located on a website and sends that text to the Telegram user.
 
+- The Tesseract library (via the pytesseract module) is used for text recognition.
+- The BeautifulSoup library is used to retrieve the image from the website.
+- The aiogram 3 library is used for the bot.
 
+## Setup
+```bash
 sudo apt install tesseract-ocr
 sudo apt install tesseract-ocr-rus
-
-В файле `config.ini` в корневой директории хранятся токены в формате:  
 ```
+
+The `config.ini` file in the root directory stores tokens in the following format: 
+```ini
 [Telegram]  
-API_ID =   
-API_HASH =   
-USERNAME =   
+API_TOKEN =  
 ``` 
 
-Посмотреть как работает можно на примере бота https://t.me/novospass_bot    
+Working example https://t.me/novospass_bot    
 
-Todo:  
-- ~~Добавить кнопки для выбора - посмотреть исходную картинку или получить текст~~  
-- ~~Использовать aiohttp вместо requests~~  
-- ~~Добавить сообщение об ожидании загрузки~~  
-- Добавить тесты   
-- Добавить проверку на то, что эту картинку уже загружали  
-- Перейти на webhook  
+## Todo
+- ~~Add buttons to choose between viewing the original image and getting the text~~
+- ~~Use aiohttp instead of requests~~
+- ~~Add a "waiting for upload" message~~
+- Add tests
+- Add a check to see if the image has already been uploaded
+- Switch to webhooks 
