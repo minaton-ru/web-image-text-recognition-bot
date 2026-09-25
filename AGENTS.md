@@ -8,12 +8,12 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - BeautifulSoup 4 to retrieve images from the website
 
 ## Project Structure
-`handlers/` - routers with handlers
-`keyboards/` - keyboards
-`utils/` - helpers for parsing and image recognition, logger
-`config.py` - environment variables and other settings
-`constants.py` - all constant variables for project
-`main.py` - entry point for bot initialization
+- `handlers/` - routers with handlers
+- `keyboards/` - keyboards
+- `utils/` - helpers for parsing and image recognition, logger
+- `config.py` - environment variables and other settings
+- `constants.py` - all constant variables for project
+- `main.py` - entry point for bot initialization
 
 ## Project Setup and Management
 - Install tesseract: `apt install tesseract-ocr` and `apt install tesseract-ocr-rus`.
@@ -27,16 +27,12 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - Mocks - only Fake classes. No `MagicMock`, `patch`, `unittest.mock`.
 
 ## Code Style
-- Use modern Python 3.13 syntax:
-  - `X | None` instead of `Optional[X]`
-  - `list[str]` instead of `List[str]`
 - Write clear, short code without unnecessary complexity.
 - If logic repeats - extract it into helper functions.
 - Follow PEP 8 for formatting (99 characters per line, snake_case for functions/variables, PascalCase for classes, UPPER_SNAKE for constants).
 - Type annotations - required everywhere, including `-> None`.
 - Write Google-style docstrings for every public function and method.
 - Do not add unused imports.
-- `print()` - do not use for debugging. 
 - Add logger.info at the main places, add logger.debug at the critical places with payload in logs with `%` formatting.
 
 ## Definition of done
