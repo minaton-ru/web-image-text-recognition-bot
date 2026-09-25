@@ -1,6 +1,6 @@
 [project]
 name = "web-image-text-recognition-bot"
-version = "0.2.0"
+version = "1.0.0"
 description = "Telegram bot for extracting text from an image from a website"
 requires-python = "==3.13.5"
 dependencies = [
@@ -30,3 +30,6 @@ ignore = ["E501"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.ruff.lint.per-file-ignores]
+"constants.py" = ["RUF001"]  # Cyrillic user-facing text is intentional
