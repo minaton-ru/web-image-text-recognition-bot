@@ -10,12 +10,12 @@ This Telegram bot extracts text from an image located on a website and sends tha
 ```bash
 sudo apt install tesseract-ocr
 sudo apt install tesseract-ocr-rus
+uv sync
 ```
 
-The `config.ini` file in the root directory stores tokens in the following format: 
+The `.env` file in the root directory stores tokens in the following format: 
 ```ini
-[Telegram]  
-API_TOKEN =  
+API_TOKEN=
 ``` 
 
 Working example https://t.me/novospass_bot    
