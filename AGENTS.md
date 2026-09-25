@@ -8,15 +8,17 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - BeautifulSoup 4 to retrieve images from the website
 
 ## Project Structure
-`handlers/` - routers
+`handlers/` - routers with handlers
 `keyboards/` - keyboards
-`utils/` - helpers for parsing and image recognition
+`utils/` - helpers for parsing and image recognition, logger
+`config.py` - environment variables and other settings
+`constants.py` - all constant variables for project
 `main.py` - entry point for bot initialization
 
 ## Project Setup and Management
 - Install tesseract: `apt install tesseract-ocr` and `apt install tesseract-ocr-rus`.
 - Dependency management: `uv` and `pyproject.toml`
-- Run the app with `uv run fastapi dev main.py`.
+- Run the app with `uv run main.py`.
 - Create branch from `main` according to the project's branch naming convention.
 - Stage changes for review. Don't commit to `main` or push without being asked.
 
