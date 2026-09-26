@@ -4,7 +4,10 @@ from aiogram import Bot, Dispatcher
 
 from config import TOKEN
 from handlers import menu, start
-from utils.logger import logger
+from utils.logger import logging
+from constants import WELCOME_TEXT
+
+logger = logging.getLogger(__name__)
 
 
 async def main() -> None:
@@ -12,7 +15,11 @@ async def main() -> None:
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
     dp.include_routers(start.router, menu.router)
-    logger.info("Bot started")
+    logger.info(f"Bot started {WELCOME_TEXT}")
+    logger.info(f"Bot started {WELCOME_TEXT}")
+    logger.info(f"Bot started {WELCOME_TEXT}")
+    logger.info(f"Bot started {WELCOME_TEXT}")
+    logger.info(f"Bot started {WELCOME_TEXT}")
     await dp.start_polling(bot)
 
 

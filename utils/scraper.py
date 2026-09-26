@@ -1,15 +1,17 @@
+import logging
+
 import aiohttp
 from bs4 import BeautifulSoup
 
-from utils.logger import logger
+
+logger = logging.getLogger(__name__)
 
 
 async def get_img_url(url: str) -> str:
-    """Fetch the web page and extract the schedule image URL.
+    """Fetch the web page and extract the target image URL.
 
     Args:
-        url: URL of the web page with the schedule image.
-
+        url: URL of the web page with the target image.
     Returns:
         Value of the image's ``src`` attribute.
     """

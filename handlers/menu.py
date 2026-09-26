@@ -1,17 +1,19 @@
+import logging
+
 from aiogram import Bot, F, Router
 from aiogram.types import Message
 
 from constants import IMAGE_BUTTON, LOADING_TEXT, TEXT_BUTTON, URL
-from utils.logger import logger
 from utils.recognition import recognize_text
 from utils.scraper import get_img_url
 
 router = Router()
+logger = logging.getLogger(__name__)
 
 
 @router.message(F.text == TEXT_BUTTON)
 async def send_text(message: Message, bot: Bot) -> None:
-    """Send the text recognized from the schedule image.
+    """Send the text recognized from the target image.
 
     Args:
         message: Incoming message with the text button label.
@@ -28,7 +30,7 @@ async def send_text(message: Message, bot: Bot) -> None:
 
 @router.message(F.text == IMAGE_BUTTON)
 async def send_img(message: Message, bot: Bot) -> None:
-    """Send the schedule image.
+    """Send the target image.
 
     Args:
         message: Incoming message with the image button label.

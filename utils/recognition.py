@@ -1,19 +1,21 @@
 import io
+import logging
 
 import aiohttp
 import pytesseract
 from PIL import Image
 
 from constants import TESSERACT_CONFIG, TESSERACT_LANG
-from utils.logger import logger
+
+
+logger = logging.getLogger(__name__)
 
 
 async def recognize_text(img_url: str) -> str:
-    """Download the image and recognize the text on it.
+    """Download the image and recognize the text on it by pytesseract.
 
     Args:
         img_url: URL of the image to recognize.
-
     Returns:
         Text recognized from the image.
     """

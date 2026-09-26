@@ -1,12 +1,14 @@
+import logging
+
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
 from constants import WELCOME_TEXT
 from keyboards.main_menu import MAIN_MENU
-from utils.logger import logger
 
 router = Router()
+logger = logging.getLogger(__name__)
 
 
 @router.message(Command("start"))
