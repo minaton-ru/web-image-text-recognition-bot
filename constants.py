@@ -1,4 +1,4 @@
-URL = "http://новоспасский-монастырь.рф/raspisanie/"  # Web page with the schedule image
+URL = "http://новоспасский-монастырь.рф/raspisanie/"  # Web page with the target image
 TESSERACT_CONFIG = r"--psm 6"  # Configuration for text recognition
 TESSERACT_LANG = "rus"
 

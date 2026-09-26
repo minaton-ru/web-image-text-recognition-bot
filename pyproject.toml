@@ -4,10 +4,11 @@ version = "1.0.0"
 description = "Telegram bot for extracting text from an image from a website"
 requires-python = "==3.13.5"
 dependencies = [
-"aiogram==3.27.0",
-"beautifulsoup4==4.14.3",
-"pytesseract==0.3.13",
-"python-dotenv==1.2.3"
+    "aiogram==3.27.0",
+    "beautifulsoup4==4.14.3",
+    "pre-commit>=4.6.2",
+    "pytesseract==0.3.13",
+    "python-dotenv==1.2.3",
 ]
 
 [dependency-groups]
