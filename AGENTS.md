@@ -50,9 +50,15 @@ Declare a task done only after docstrings are updated and all of these pass:
 - Do not look at the __pycache__ folder unless the user has explicitly asked you to do so.
 
 ## Git branch naming convention
-Branches should be named according to the type of task.  
-Git branch name format:  
+Branches should be named according to the type of task.
+Git branch name format:
 `<type>-<short-description>`
 Where:
 - `type` - task type: `feature`, `fix`, `tests`, `refactor`
 - `short-description` - a short description in the style of `kebab-case`
+
+## Commit tag rules
+Each commit must be marked with a tag in square brackets at the beginning of the message:
+- `[agent]` - the diff from the agent was accepted without significant edits
+- `[assisted]` - the agent did the bulk of the work, but the developer rewrote a significant portion (logic, structure, >20% of lines)
+- `[manual]` - the code was written manually without the agent's assistance
