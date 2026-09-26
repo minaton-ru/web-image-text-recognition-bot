@@ -1,6 +1,6 @@
 [project]
 name = "web-image-text-recognition-bot"
-version = "1.1.0"
+version = "1.1.1"
 description = "Telegram bot for extracting text from an image from a website"
 requires-python = "==3.13.5"
 dependencies = [

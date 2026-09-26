@@ -5,7 +5,7 @@ from config import LOG_LEVEL
 
 
 file_handler = RotatingFileHandler("bot.log",
-                                   maxBytes=3*1024*1024,
+                                   maxBytes=3*1024*1024,  # 3 Mb
                                    backupCount=3,
                                    encoding="utf-8")
 
