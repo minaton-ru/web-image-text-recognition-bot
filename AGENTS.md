@@ -36,7 +36,7 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - Apply KISS, DRY and SOLID principles to the code.
 - Add logger.info at the main places, add logger.debug at the critical places with payload in logs with `%` formatting.
 
-## Definition of done
+## Definition of done (quality gates)
 Declare a task done only after docstrings are updated and all of these pass green:
   - `uv run ruff format .`
   - `uv run ruff check --fix .`
@@ -48,13 +48,12 @@ Declare a task done only after docstrings are updated and all of these pass gree
 - Ask before adding dependencies.
 - Before starting work, create a new git branch from `master` according to the project's branch naming convention.
 - If a mismatch causes you to think for too long, ask the user this question and suggest possible next steps.
-- Do not look at the __pycache__ folder unless the user has explicitly asked you to do so.
+- Do not look at the `__pycache__` folder unless the user has explicitly asked you to do so.
 
 ## Git branch naming convention
 Branches should be named according to the type of task.
-Git branch name format:
-`<type>-<short-description>`
-Where:
+
+Git branch name format: `<type>-<short-description>`, where:
 - `type` - task type: `feat`, `fix`, `test`, `refactor`, `docs`, `ci`, `chore`, `style`, according to the Conventional Commits
 - `short-description` - a short description in the style of `kebab-case`
 
