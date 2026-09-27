@@ -1,4 +1,5 @@
 URL = "http://новоспасский-монастырь.рф/raspisanie/"  # Web page with the target image
+HTTP_TIMEOUT = 20  # Seconds to wait for the site before showing an error
 TESSERACT_CONFIG = r"--psm 6"  # Configuration for text recognition
 TESSERACT_LANG = "rus"
 
@@ -14,3 +15,13 @@ WELCOME_TEXT = (
     "или загрузить в виде картинки."
 )
 LOADING_TEXT = "Загрузка, подождите........"
+
+ERROR_TEXT = "Не удалось получить расписание. Попробуйте позже."
+CONNECTION_ERROR_TEXT = "Сайт монастыря недоступен. Попробуйте позже."
+PARSING_ERROR_TEXT = "Не удалось найти расписание на сайте монастыря. Попробуйте позже."
+RECOGNIZING_ERROR_TEXT = (
+    "Не удалось распознать текст расписания. Попробуйте получить расписание в виде картинки."
+)
+SENDING_IMAGE_ERROR_TEXT = (
+    "Не удалось отправить картинку. Попробуйте позже."
+)
