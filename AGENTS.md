@@ -30,11 +30,13 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - Write clear, short code without unnecessary complexity.
 - If logic repeats - extract it into helper functions.
 - Follow PEP 8 for formatting (99 characters per line, snake_case for functions/variables, PascalCase for classes, UPPER_SNAKE for constants).
+- Use descriptive, unambiguous names for variables. Use descriptive names that start with a verb for functions.
 - Type annotations - required everywhere, including `-> None`.
 - Write Google-style docstrings for every public function and method.
 - Do not add unused imports.
+- All exception raises must be logged.
+- Add logger.info at the main places, add logger.debug at the critical places with payload in logs with `%` formatting. Create a module-level logger with `__name__`.
 - Apply KISS, DRY and SOLID principles to the code.
-- Add logger.info at the main places, add logger.debug at the critical places with payload in logs with `%` formatting.
 
 ## Definition of done (quality gates)
 Declare a task done only after docstrings are updated and all of these pass green:
