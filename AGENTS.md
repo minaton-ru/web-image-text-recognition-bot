@@ -51,6 +51,7 @@ Declare a task done only after docstrings are updated and all of these pass gree
 - Before starting work, create a new git branch from `master` according to the project's branch naming convention.
 - If a mismatch causes you to think for too long, ask the user this question and suggest possible next steps.
 - Do not look at the `__pycache__` folder unless the user has explicitly asked you to do so.
+- Do not look at git branches other than `master` unless the user has explicitly asked you to do so.
 
 ## Git branch naming convention
 Branches should be named according to the type of task.
