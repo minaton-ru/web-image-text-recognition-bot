@@ -4,7 +4,7 @@
 ## Overview
 This Telegram bot extracts text from an image located on a website and sends that text to the Telegram user.
 
-- The Tesseract library (via the pytesseract module) is used for text recognition.
+- The Tesseract library (via the pytesseract module) is used for text recognition. `TextRecognizer` accepts an optional OCR engine (`TesseractOCR` by default), so it can be replaced, e.g. with a fake in tests.
 - The BeautifulSoup library is used to retrieve the image from the website.
 - The aiogram 3 library is used for the bot.
 
