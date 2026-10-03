@@ -18,6 +18,12 @@ sudo apt install tesseract-ocr-rus
 3. Run `uv sync`.
 3. Start the bot `uv run main.py`.
 
+## Tests
+Run tests with `uv run pytest`.
+
+- `tests/unit/` - unit tests for `utils/` (HTTP download, scraping, text recognition).
+- `tests/fakes.py` - in-memory fakes of the aiohttp session and the OCR engine, so unit tests need neither network nor Tesseract.
+
 ## Configuration
 The `.env` file in the root directory stores tokens in the following format:
 ```ini
