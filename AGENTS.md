@@ -10,15 +10,16 @@ The Telegram bot recognizes text from an image located on a website and sends th
 ## Project Structure
 - `handlers/` - routers with handlers
 - `keyboards/` - keyboards
-- `utils/` - helpers for parsing and image recognition, logger
+- `utils/` - helpers, utils, logger
 - `config.py` - environment variables and other settings
 - `constants.py` - all constant variables for project
+- `exceptions.py` - custom exception classes
 - `main.py` - entry point for bot initialization
 
 ## Project Setup and Management
 - Install tesseract: `apt install tesseract-ocr` and `apt install tesseract-ocr-rus`.
 - Dependency management: `uv` and `pyproject.toml`
-- Run the app with `uv run main.py`.
+- Run the bot with `uv run main.py`.
 - Create branch from `master` according to the project's branch naming convention with the command `git checkout master && git pull && git checkout -b <type>-<short-description>`.
 - Stage changes for review. Don't commit or push without being asked.
 
@@ -39,7 +40,7 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - Apply KISS, DRY and SOLID principles to the code.
 
 ## Definition of done (quality gates)
-Declare a task done only after docstrings are updated and all of these pass green:
+Declare a task done only after docstrings are updated, README.md is updated, and all of these pass green:
   - `uv run ruff format .`
   - `uv run ruff check --fix .`
   - `uv run pytest` passes, with a test added for every new code
