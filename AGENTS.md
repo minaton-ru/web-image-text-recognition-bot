@@ -26,6 +26,19 @@ The Telegram bot recognizes text from an image located on a website and sends th
 ## Testing
 - Tests - only `pytest`, functions. No `unittest.TestCase`.
 - Mocks - only Fake classes. No `MagicMock`, `patch`, `unittest.mock`.
+- Unit tests must be fast and isolated.
+- Do not use shared state between tests.
+
+### Unit tests
+- Happy path.
+- Edge cases: empty string, `None`, whitespace.
+- Error cases: invalid input, missing entity, network errors.
+- A regression test for a discovered bug.
+
+### Integration tests
+- Integration tests verify the bot with the fakes.
+- The test environment state must be reset before tests.
+- For this, it is convenient to use `pytest.fixture(autouse=True)`.
 
 ## Code Style
 - Write clear, short code without unnecessary complexity.
