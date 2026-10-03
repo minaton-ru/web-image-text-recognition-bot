@@ -1,7 +1,7 @@
 import asyncio
 
-from aiohttp import ClientTimeout, ClientSession
 from aiogram import Bot, Dispatcher
+from aiohttp import ClientSession, ClientTimeout
 
 from config import TOKEN
 from constants import HTTP_TIMEOUT
