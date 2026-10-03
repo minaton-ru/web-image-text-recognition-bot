@@ -28,12 +28,16 @@ The Telegram bot recognizes text from an image located on a website and sends th
 - Mocks - only Fake classes. No `MagicMock`, `patch`, `unittest.mock`.
 - Unit tests must be fast and isolated.
 - Do not use shared state between tests.
+- If a method should return no entity - check for `is None`.
+- For errors use `pytest.raises(..., match=...)`.
+- Test names should follow the `test_...` style.
 
 ### Unit tests
 - Happy path.
 - Edge cases: empty string, `None`, whitespace.
 - Error cases: invalid input, missing entity, network errors.
 - A regression test for a discovered bug.
+- Each test creates its own service instance via the factory.
 
 ### Integration tests
 - Integration tests verify the bot with the fakes.
@@ -56,7 +60,7 @@ The Telegram bot recognizes text from an image located on a website and sends th
 Declare a task done only after docstrings are updated, README.md is updated, and all of these pass green:
   - `uv run ruff format .`
   - `uv run ruff check --fix .`
-  - `uv run pytest` passes, with a test added for every new code
+  - `uv run pytest -q` passes, with a test added for every new code
 
 ## Constraints
 - Never edit: lock files, `.env`.
