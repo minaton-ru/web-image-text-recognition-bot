@@ -1,4 +1,6 @@
+from dataclasses import dataclass, field
 from types import TracebackType
+from typing import Any
 
 from aiohttp import ClientResponseError, RequestInfo
 from multidict import CIMultiDict, CIMultiDictProxy
@@ -92,4 +94,121 @@ class FakeOCR:
         """Return the stored text or raise ``BotRecognizingError``."""
         if self.fail:
             raise BotRecognizingError("Fake OCR failed")
+        return self.text
+
+
+@dataclass
+class FakeUser:
+    """Fake Telegram user with only the ID."""
+
+    id: int
+
+
+@dataclass
+class FakeChat:
+    """Fake Telegram chat with only the ID."""
+
+    id: int
+
+
+@dataclass
+class FakeMessage:
+    """Fake Telegram message storing the answers in memory.
+
+    Args:
+        text: Text of the incoming message.
+        user_id: ID of the user and the private chat the message came from.
+    """
+
+    text: str | None = None
+    user_id: int = 1
+    message_id: int = 1
+    answers: list[tuple[str, Any]] = field(default_factory=list)
+
+    @property
+    def from_user(self) -> FakeUser:
+        """Return the message sender."""
+        return FakeUser(self.user_id)
+
+    @property
+    def chat(self) -> FakeChat:
+        """Return the private chat with the sender."""
+        return FakeChat(self.user_id)
+
+    async def answer(self, text: str, reply_markup: Any = None) -> "FakeMessage":
+        """Store the answer text with its keyboard."""
+        self.answers.append((text, reply_markup))
+        return FakeMessage(text=text, user_id=self.user_id)
+
+
+class FakeBot:
+    """Fake aiogram bot storing sent and deleted messages in memory.
+
+    Args:
+        photo_error: Exception raised when a photo is sent, like ``TelegramBadRequest``.
+    """
+
+    def __init__(self, photo_error: BaseException | None = None) -> None:
+        self.photo_error = photo_error
+        self.sent_messages: list[tuple[int, str, int]] = []
+        self.deleted_messages: list[tuple[int, int]] = []
+        self.sent_photos: list[tuple[int, str]] = []
+
+    async def send_message(self, chat_id: int, text: str) -> FakeMessage:
+        """Store the message and return it with a new message ID."""
+        message_id = len(self.sent_messages) + 100
+        self.sent_messages.append((chat_id, text, message_id))
+        return FakeMessage(text=text, user_id=chat_id, message_id=message_id)
+
+    async def delete_message(self, chat_id: int, message_id: int) -> bool:
+        """Store the deleted message ID."""
+        self.deleted_messages.append((chat_id, message_id))
+        return True
+
+    async def send_photo(self, chat_id: int, photo: str) -> None:
+        """Store the photo URL or raise the stored error."""
+        if self.photo_error is not None:
+            raise self.photo_error
+        self.sent_photos.append((chat_id, photo))
+
+
+class FakeScraper:
+    """Fake image scraper returning the stored image URL.
+
+    Args:
+        img_url: Image URL returned for any web page.
+        error: Exception raised instead of returning the URL.
+    """
+
+    def __init__(self, img_url: str = "", error: BaseException | None = None) -> None:
+        self.img_url = img_url
+        self.error = error
+        self.requested_urls: list[str] = []
+
+    async def get_img_url(self, url: str) -> str:
+        """Store the requested URL and return the image URL or raise the stored error."""
+        self.requested_urls.append(url)
+        if self.error is not None:
+            raise self.error
+        return self.img_url
+
+
+class FakeRecognizer:
+    """Fake text recognizer returning the stored text.
+
+    Args:
+        text: Text returned for any image.
+        error: Exception raised instead of returning the text.
+    """
+
+    def __init__(self, text: str = "", error: BaseException | None = None) -> None:
+        self.text = text
+        self.error = error
+        self.requested_urls: list[str] = []
+
+    async def recognize_text(self, img_url: str) -> str:
+        """Store the image URL and return the text or raise the stored error."""
+        self.requested_urls.append(img_url)
+        if self.error is not None:
+            raise self.error
         return self.text
