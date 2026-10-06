@@ -21,8 +21,8 @@ sudo apt install tesseract-ocr-rus
 ## Tests
 Run tests with `uv run pytest`.
 
-- `tests/unit/` - unit tests for `utils/` (HTTP download, scraping, text recognition).
-- `tests/fakes.py` - in-memory fakes of the aiohttp session and the OCR engine, so unit tests need neither network nor Tesseract.
+- `tests/unit/` - unit tests for `utils/` (HTTP download, scraping, text recognition) and `handlers/` (start command, menu buttons).
+- `tests/fakes.py` - in-memory fakes of the aiohttp session, the OCR engine, the Telegram bot and message, the image scraper and the text recognizer, so unit tests need neither network, Tesseract nor Telegram.
 
 ## Configuration
 The `.env` file in the root directory stores tokens in the following format:
