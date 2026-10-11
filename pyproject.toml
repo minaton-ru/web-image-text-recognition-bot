@@ -39,3 +39,4 @@ indent-style = "space"
 asyncio_mode = "auto"
 pythonpath = ["."]
 testpaths = ["tests"]
+markers = ["integration: integration tests of the bot with fakes"]

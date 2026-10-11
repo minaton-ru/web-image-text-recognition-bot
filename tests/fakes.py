@@ -1,8 +1,16 @@
+import socket
+from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
+from datetime import datetime
 from types import TracebackType
 from typing import Any
 
+from aiogram import Bot
+from aiogram.client.session.base import BaseSession
+from aiogram.methods import SendMessage, SendPhoto, TelegramMethod
+from aiogram.types import Chat, Message
 from aiohttp import ClientResponseError, RequestInfo
+from aiohttp.abc import AbstractResolver, ResolveResult
 from multidict import CIMultiDict, CIMultiDictProxy
 from PIL import Image
 from yarl import URL
@@ -212,3 +220,87 @@ class FakeRecognizer:
         if self.error is not None:
             raise self.error
         return self.text
+
+
+class FakeTelegramSession(BaseSession):
+    """Fake aiogram session storing Telegram API requests in memory instead of sending them.
+
+    Sent messages and photos are answered with a new ``Message``, other methods with ``True``.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.requests: list[TelegramMethod[Any]] = []
+        self.errors: dict[type[TelegramMethod[Any]], BaseException] = {}
+
+    def add_error(self, method_type: type[TelegramMethod[Any]], error: BaseException) -> None:
+        """Make requests of the method type fail with the error, like ``TelegramBadRequest``."""
+        self.errors[method_type] = error
+
+    def get_requests(self, method_type: type[TelegramMethod[Any]]) -> list[Any]:
+        """Return the stored requests of the method type in order."""
+        return [request for request in self.requests if isinstance(request, method_type)]
+
+    async def make_request(
+        self,
+        bot: Bot,
+        method: TelegramMethod[Any],
+        timeout: int | None = None,
+    ) -> Any:
+        """Store the request and return a fake result or raise the stored error."""
+        self.requests.append(method)
+        error = self.errors.get(type(method))
+        if error is not None:
+            raise error
+        if isinstance(method, SendMessage | SendPhoto):
+            chat = Chat(id=method.chat_id, type="private")
+            return Message(message_id=len(self.requests), date=datetime.now(), chat=chat)
+        return True
+
+    async def stream_content(
+        self,
+        url: str,
+        headers: dict[str, Any] | None = None,
+        timeout: int = 30,
+        chunk_size: int = 65536,
+        raise_for_status: bool = True,
+    ) -> AsyncGenerator[bytes]:
+        """Yield no content, the bot doesn't download files."""
+        yield b""
+
+    async def close(self) -> None:
+        """Do nothing, there is no connection to close."""
+
+
+class FakeResolver(AbstractResolver):
+    """Fake aiohttp DNS resolver pointing every host to the local server port.
+
+    Args:
+        port: Port of the local server.
+    """
+
+    def __init__(self, port: int) -> None:
+        self.port = port
+        self.resolved_hosts: list[str] = []
+
+    async def resolve(
+        self,
+        host: str,
+        port: int = 0,
+        family: socket.AddressFamily = socket.AF_INET,
+    ) -> list[ResolveResult]:
+        """Store the host and resolve it to the local server."""
+        self.resolved_hosts.append(host)
+        return [
+            ResolveResult(
+                hostname=host,
+                host="127.0.0.1",
+                port=self.port,
+                family=socket.AF_INET,
+                proto=0,
+                flags=socket.AI_NUMERICHOST,
+            )
+        ]
+
+    async def close(self) -> None:
+        """Do nothing, there is nothing to release."""
