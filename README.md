@@ -19,10 +19,11 @@ sudo apt install tesseract-ocr-rus
 3. Start the bot `uv run main.py`.
 
 ## Tests
-Run tests with `uv run pytest`.
+Run tests with `uv run pytest`. Run only integration tests with `uv run pytest -m integration`, or skip them with `uv run pytest -m "not integration"`.
 
 - `tests/unit/` - unit tests for `utils/` (HTTP download, scraping, text recognition) and `handlers/` (start command, menu buttons).
-- `tests/fakes.py` - in-memory fakes of the aiohttp session, the OCR engine, the Telegram bot and message, the image scraper and the text recognizer, so unit tests need neither network, Tesseract nor Telegram.
+- `tests/integration/` - integration tests of the bot and dispatcher: updates go through the real routers, scraper and recognizer. A local aiohttp web server serves the fixture HTML page and image from `tests/integration/fixtures/`, a fake DNS resolver points the site domain to it, and a fake Telegram session stores the bot API requests in memory.
+- `tests/fakes.py` - in-memory fakes of the aiohttp session, the DNS resolver, the OCR engine, the Telegram session, bot and message, the image scraper and the text recognizer, so tests need neither network, Tesseract nor Telegram.
 
 ## Configuration
 The `.env` file in the root directory stores tokens in the following format:
